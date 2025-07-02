@@ -1,0 +1,28 @@
+---
+import heroImage from '../../assets/hero-image.jpg'; // Replace with the actual path to your image
+---
+
+<section class="w-full h-screen bg-gradient-to-r from-purple-700 via-purple-500 to-pink-300 text-white relative overflow-hidden">
+  <div class="flex flex-col md:flex-row items-center justify-center h-full max-w-screen-xl mx-auto px-6 md:px-20">
+    
+    <!-- Image -->
+    <div class="w-full md:w-1/2 mb-8 md:mb-0 md:mr-4">
+      <img src={heroImage.src} alt="Havnegata dronebilde" class="rounded-md shadow-lg w-full h-auto" />
+    </div>
+
+    <!-- Text -->
+    <div class="w-full md:w-1/2 text-center md:text-left space-y-4 md:ml-4">
+      <p class="text-3xl text-yellow-100 font-body font-light">Hyggelig handel i</p>
+      <h1 class="text-5xl md:text-8xl font-bold text-candy-300 font-headline drop-shadow-lg shadow-red-500">Havnegata</h1>
+      <p class="text-base md:text-lg text-purple-100">
+        Sommer kommer, og nisjebutikkene i Havnegata er klare for storinntrykk av sommerklare shoppere.
+      </p>
+    </div>
+  </div>
+
+  <!-- Decorative icons (optional) -->
+  <div class="absolute top-4 left-4 text-pink-100 text-2xl">🐟</div>
+  <div class="absolute bottom-4 left-8 text-pink-100 text-2xl">👗</div>
+  <div class="absolute bottom-4 right-8 text-yellow-200 text-2xl">🌞</div>
+  <div class="absolute top-4 right-4 text-pink-100 text-2xl">👒</div>
+</section>

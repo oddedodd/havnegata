@@ -1,0 +1,89 @@
+@import url("https://use.typekit.net/oks5qqb.css");
+@import "tailwindcss";
+
+@theme {
+  /* COLORS */
+  --color-candy-100: #fff0f6;
+  --color-candy-200: #ffdcea;
+  --color-candy-300: #ffc7e1;
+  --color-candy-400: #fca3c7;
+  --color-candy-500: #f77eac;
+  --color-candy-600: #e75893;
+  --color-candy-700: #c84279;
+  --color-candy-800: #a02e60;
+  --color-candy-900: #731f46;
+
+  --color-lilac-100: #f7ecfe;
+  --color-lilac-200: #ecd6fd;
+  --color-lilac-300: #e1b6f9;
+  --color-lilac-400: #d28bf2;
+  --color-lilac-500: #c260ec;
+  --color-lilac-600: #a63dcf;
+  --color-lilac-700: #802aa5;
+  --color-lilac-800: #5e1f78;
+  --color-lilac-900: #3f1551;
+
+  --color-lemon-100: #fffde8;
+  --color-lemon-200: #fff9c2;
+  --color-lemon-300: #fef08a;
+  --color-lemon-400: #fde34d;
+  --color-lemon-500: #facc15;
+  --color-lemon-600: #eab308;
+  --color-lemon-700: #ca8a04;
+  --color-lemon-800: #a16207;
+  --color-lemon-900: #854d0e;
+
+  --color-mint-100: #e6fdf9;
+  --color-mint-200: #d0f8f1;
+  --color-mint-300: #baf2e5;
+  --color-mint-400: #90e7d4;
+  --color-mint-500: #63d8c3;
+  --color-mint-600: #40c2ae;
+  --color-mint-700: #2e9e8e;
+  --color-mint-800: #21766a;
+  --color-mint-900: #164f45;
+
+  --color-peach-100: #fff1ec;
+  --color-peach-200: #feddd3;
+  --color-peach-300: #fbb8a0;
+  --color-peach-400: #f99677;
+  --color-peach-500: #f46e4e;
+  --color-peach-600: #e24932;
+  --color-peach-700: #bb3728;
+  --color-peach-800: #922a1f;
+  --color-peach-900: #6a1d15;
+
+  --color-sky-100: #f0faff;
+  --color-sky-200: #d8f1fc;
+  --color-sky-300: #bde6fb;
+  --color-sky-400: #8fd5f8;
+  --color-sky-500: #5fc3f5;
+  --color-sky-600: #38a9db;
+  --color-sky-700: #2785ae;
+  --color-sky-800: #1c6484;
+  --color-sky-900: #12475d;
+
+  --color-coral-100: #fff1f3;
+  --color-coral-200: #ffdce1;
+  --color-coral-300: #fbbec2;
+  --color-coral-400: #f98d96;
+  --color-coral-500: #f7616b;
+  --color-coral-600: #e93c47;
+  --color-coral-700: #c32937;
+  --color-coral-800: #991f2c;
+  --color-coral-900: #6b151e;
+
+  --color-sun-100: #fffce0;
+  --color-sun-200: #fff4b8;
+  --color-sun-300: #ffd700;
+  --color-sun-400: #ffbe00;
+  --color-sun-500: #ffa600;
+  --color-sun-600: #e68900;
+  --color-sun-700: #b96b00;
+  --color-sun-800: #8c4e00;
+  --color-sun-900: #5c3200;
+
+  /* Fonts */
+  --font-body: "bilo", sans-serif;
+  --font-headline: "jumble", sans-serif;
+}
