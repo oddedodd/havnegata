@@ -5,12 +5,20 @@ import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 import { getPosts } from "../utils/sanity";
 import Hero from "../components/Hero.astro";
+import { getCompanies } from "../utils/sanity";
 
 const posts = await getPosts();
+const companies = await getCompanies();
 ---
   <Hero />
 <Layout title="Welcome to Astro.">
-  
+  <section>
+    {companies.length ? companies.map((company) => (
+      <div>
+        <h2>{company.name}</h2>
+      </div>
+    )) : <Welcome />}
+  </section>
   <section>
     {posts.length ? posts.map((post) => <Card post={post} />) : <Welcome />}
   </section>

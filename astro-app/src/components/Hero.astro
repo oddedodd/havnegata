@@ -1,5 +1,13 @@
 ---
-import heroImage from '../../assets/hero-image.jpg'; // Replace with the actual path to your image
+import heroImage from '../../assets/hero-image.jpg'; 
+import bikeIcon from '../../assets/bike.svg';
+import dressIcon from '../../assets/dress.svg';
+import hatIcon from '../../assets/hat.svg';
+import shoeIcon from '../../assets/shoe.svg';
+import sunIcon from '../../assets/sun.svg';
+import fishIcon from '../../assets/fish.svg';
+import flowerIcon from '../../assets/flower.svg';
+import heartIcon from '../../assets/heart.svg';
 ---
 
 <section class="w-full h-screen bg-gradient-to-r from-purple-700 via-purple-500 to-pink-300 text-white relative overflow-hidden">
@@ -14,15 +22,23 @@ import heroImage from '../../assets/hero-image.jpg'; // Replace with the actual 
     <div class="w-full md:w-1/2 text-center md:text-left space-y-4 md:ml-4">
       <p class="text-3xl text-yellow-100 font-body font-light">Hyggelig handel i</p>
       <h1 class="text-5xl md:text-8xl font-bold text-candy-300 font-headline drop-shadow-lg shadow-red-500">Havnegata</h1>
-      <p class="text-base md:text-lg text-purple-100">
+      <p class="mt-10 text-base md:text-2xl text-white font-body font-light">
         Sommer kommer, og nisjebutikkene i Havnegata er klare for storinntrykk av sommerklare shoppere.
       </p>
     </div>
   </div>
 
-  <!-- Decorative icons (optional) -->
-  <div class="absolute top-4 left-4 text-pink-100 text-2xl">🐟</div>
-  <div class="absolute bottom-4 left-8 text-pink-100 text-2xl">👗</div>
-  <div class="absolute bottom-4 right-8 text-yellow-200 text-2xl">🌞</div>
-  <div class="absolute top-4 right-4 text-pink-100 text-2xl">👒</div>
+  <!-- Decorative icons -->
+  <div class="absolute top-4 left-4 text-pink-100 text-2xl">
+    <img src={fishIcon.src} alt="Fisk" class="w-10 h-10" />
+  </div>
+  <div class="absolute bottom-4 left-8 text-pink-100 text-2xl">
+    <img src={dressIcon.src} alt="Dress" class="w-30 h-30" />
+  </div>
+  <div class="absolute bottom-4 right-8 text-yellow-200 text-2xl">
+    <img src={sunIcon.src} alt="Sun" class="w-10 h-10" />
+  </div>
+  <div class="absolute top-4 right-4 text-pink-100 text-2xl">
+    <img src={hatIcon.src} alt="Hat" class="w-10 h-10" />
+  </div>
 </section>

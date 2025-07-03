@@ -18,6 +18,21 @@ export async function getPost(slug: string): Promise<Post> {
   );
 }
 
+export async function getCompanies(): Promise<Company[]> {
+  return await sanityClient.fetch(
+    groq`*[_type == "company" && defined(slug.current)] | order(name asc)`
+  );
+}
+
+export async function getCompany(slug: string): Promise<Company> {
+  return await sanityClient.fetch(
+    groq`*[_type == "company" && slug.current == $slug][0]`,
+    {
+      slug,
+    }
+  );
+}
+
 export interface Post {
   _type: "post";
   _createdAt: string;
@@ -26,4 +41,17 @@ export interface Post {
   excerpt?: string;
   mainImage?: ImageAsset & { alt?: string };
   body: PortableTextBlock[];
+}
+
+export interface Company {
+  _type: "company";
+  _createdAt: string;
+  name: string;
+  slug: Slug;
+  description?: string;
+  logo?: ImageAsset & { alt?: string };
+  links?: Array<{
+    title?: string;
+    url?: string;
+  }>;
 }
