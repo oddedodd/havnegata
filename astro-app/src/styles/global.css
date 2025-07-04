@@ -86,4 +86,6 @@
   /* Fonts */
   --font-body: "bilo", sans-serif;
   --font-headline: "jumble", sans-serif;
+
+  --text-shadow-xl: 3px 5px 0 rgb(0, 0, 0 / 0.25);
 }
