@@ -50,6 +50,8 @@ export interface Company {
   slug: Slug;
   description?: string;
   tagline?: string;
+  textColor?: string;
+  shadowColor?: string;
   logo?: ImageAsset & { alt?: string };
   featuredImage?: ImageAsset & { alt?: string; caption?: string };
   imageGallery?: Array<ImageAsset & { alt?: string; caption?: string }>;

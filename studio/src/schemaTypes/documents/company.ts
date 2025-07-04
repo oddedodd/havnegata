@@ -17,6 +17,12 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'textColor',
+      title: 'Text Color',
+      type: 'string',
+      description: 'Color for the company name text (e.g., #333333)',
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -37,6 +43,12 @@ export default defineType({
       title: 'Tagline',
       type: 'string',
       description: 'A short, catchy phrase that represents the company',
+    }),
+    defineField({
+      name: 'shadowColor',
+      title: 'Shadow Color',
+      type: 'string',
+      description: 'Color for the tagline text shadow (e.g., #000000)',
     }),
     defineField({
       name: 'bgColor',
