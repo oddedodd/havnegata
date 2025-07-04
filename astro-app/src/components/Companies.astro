@@ -1,0 +1,17 @@
+---
+import CompanyCard from "./CompanyCard.astro";
+import { getCompanies } from "../utils/sanity";
+
+const companies = await getCompanies();
+---
+
+<section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+  {companies.map(company => (
+    <CompanyCard 
+      name={company.name}
+      tagline={company.tagline}
+      image={company.featuredImage}
+      bgColor={company.bgColor}
+    />
+  ))}
+</section>

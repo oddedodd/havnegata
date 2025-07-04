@@ -49,7 +49,11 @@ export interface Company {
   name: string;
   slug: Slug;
   description?: string;
+  tagline?: string;
   logo?: ImageAsset & { alt?: string };
+  featuredImage?: ImageAsset & { alt?: string; caption?: string };
+  imageGallery?: Array<ImageAsset & { alt?: string; caption?: string }>;
+  bgColor?: string;
   links?: Array<{
     title?: string;
     url?: string;

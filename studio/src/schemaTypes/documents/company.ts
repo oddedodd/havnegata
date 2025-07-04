@@ -39,6 +39,12 @@ export default defineType({
       description: 'A short, catchy phrase that represents the company',
     }),
     defineField({
+      name: 'bgColor',
+      title: 'Background Color',
+      type: 'string',
+      description: 'Optional background color for the company card (e.g., #f0f0f0)',
+    }),
+    defineField({
       name: 'logo',
       title: 'Logo',
       type: 'image',
