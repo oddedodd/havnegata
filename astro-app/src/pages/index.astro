@@ -11,9 +11,10 @@ import Companies from "../components/Companies.astro";
 const posts = await getPosts();
 const companies = await getCompanies();
 ---
-<Hero />
-<Companies />
+
 <Layout title="Velkommen til hyggelig handel i Havnegata - Nisjebutikker i Namsos sentrum">
+  <Hero />
+  <Companies />
   <section>
     {companies.length ? companies.map((company) => (
       <div>
