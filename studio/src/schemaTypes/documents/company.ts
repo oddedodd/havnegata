@@ -33,6 +33,12 @@ export default defineType({
       rows: 4,
     }),
     defineField({
+      name: 'tagline',
+      title: 'Tagline',
+      type: 'string',
+      description: 'A short, catchy phrase that represents the company',
+    }),
+    defineField({
       name: 'logo',
       title: 'Logo',
       type: 'image',
@@ -45,6 +51,51 @@ export default defineType({
           title: 'Alternative text',
           type: 'string',
         }),
+      ],
+    }),
+    defineField({
+      name: 'featuredImage',
+      title: 'Featured Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+        }),
+        defineField({
+          name: 'caption',
+          title: 'Caption',
+          type: 'string',
+        }),
+      ],
+    }),
+    defineField({
+      name: 'imageGallery',
+      title: 'Image Gallery',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alternative text',
+              type: 'string',
+            }),
+            defineField({
+              name: 'caption',
+              title: 'Caption',
+              type: 'string',
+            }),
+          ],
+        },
       ],
     }),
     defineField({
