@@ -6,7 +6,9 @@ import Layout from "../layouts/Layout.astro";
 import { getPosts } from "../utils/sanity";
 import Hero from "../components/Hero.astro";
 import { getCompanies } from "../utils/sanity";
-import Companies from "../components/Companies.astro";
+import CompanyCard from "../components/CompanyCard.astro";
+import CompanySection from "../components/CompanySection.astro";
+// import Companies from "../components/Companies.astro";
 
 const posts = await getPosts();
 const companies = await getCompanies();
@@ -14,7 +16,28 @@ const companies = await getCompanies();
 
 <Layout title="Velkommen til hyggelig handel i Havnegata - Nisjebutikker i Namsos sentrum">
   <Hero />
-  <Companies />
+  <!-- <Companies /> -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+    {companies.map(company => (
+      <CompanyCard 
+        name={company.name}
+        tagline={company.tagline}
+        image={company.featuredImage}
+        bgColor={company.bgColor}
+        textColor={company.textColor}
+        shadowColor={company.shadowColor}
+      />
+    ))}
+  </section>
+  <section>
+    {companies.map(company => (
+      <CompanySection 
+        name={company.name}
+        tagline={company.tagline}
+        bgImage={company.featuredImage}
+      />
+    ))}
+  </section>
   <section>
     {companies.length ? companies.map((company) => (
       <div>
