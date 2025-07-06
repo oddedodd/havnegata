@@ -12,6 +12,7 @@ import CompanySection from "../components/CompanySection.astro";
 
 const posts = await getPosts();
 const companies = await getCompanies();
+console.log(companies);
 ---
 
 <Layout title="Velkommen til hyggelig handel i Havnegata - Nisjebutikker i Namsos sentrum">
@@ -38,6 +39,7 @@ const companies = await getCompanies();
         bgColor={company.bgColor}
         textColor={company.textColor}
         shadowColor={company.shadowColor}
+        body={company.body}
       />
     ))}
   </section>

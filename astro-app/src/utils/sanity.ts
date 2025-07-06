@@ -5,13 +5,31 @@ import groq from "groq";
 
 export async function getPosts(): Promise<Post[]> {
   return await sanityClient.fetch(
-    groq`*[_type == "post" && defined(slug.current)] | order(_createdAt desc)`
+    groq`*[_type == "post" && defined(slug.current)] | order(_createdAt desc){
+      ...,
+      body[]{
+        ...,
+        _type == "image" => {
+          ...,
+          asset->
+        }
+      }
+    }`
   );
 }
 
 export async function getPost(slug: string): Promise<Post> {
   return await sanityClient.fetch(
-    groq`*[_type == "post" && slug.current == $slug][0]`,
+    groq`*[_type == "post" && slug.current == $slug][0]{
+      ...,
+      body[]{
+        ...,
+        _type == "image" => {
+          ...,
+          asset->
+        }
+      }
+    }`,
     {
       slug,
     }
@@ -20,13 +38,39 @@ export async function getPost(slug: string): Promise<Post> {
 
 export async function getCompanies(): Promise<Company[]> {
   return await sanityClient.fetch(
-    groq`*[_type == "company" && defined(slug.current)] | order(name asc)`
+    groq`*[_type == "company" && defined(slug.current)] | order(name asc){
+      ...,
+      bgImage{
+        ...,
+        asset->
+      },
+      body[]{
+        ...,
+        _type == "image" => {
+          ...,
+          asset->
+        }
+      }
+    }`
   );
 }
 
 export async function getCompany(slug: string): Promise<Company> {
   return await sanityClient.fetch(
-    groq`*[_type == "company" && slug.current == $slug][0]`,
+    groq`*[_type == "company" && slug.current == $slug][0]{
+      ...,
+      bgImage{
+        ...,
+        asset->
+      },
+      body[]{
+        ...,
+        _type == "image" => {
+          ...,
+          asset->
+        }
+      }
+    }`,
     {
       slug,
     }
@@ -49,6 +93,7 @@ export interface Company {
   name: string;
   slug: Slug;
   description?: string;
+  body: PortableTextBlock[];
   tagline?: string;
   textColor?: string;
   shadowColor?: string;
@@ -56,6 +101,7 @@ export interface Company {
   featuredImage?: ImageAsset & { alt?: string; caption?: string };
   imageGallery?: Array<ImageAsset & { alt?: string; caption?: string }>;
   bgColor?: string;
+  bgImage?: ImageAsset & { alt?: string };
   links?: Array<{
     title?: string;
     url?: string;

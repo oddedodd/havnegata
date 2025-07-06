@@ -9,7 +9,7 @@ const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
 export default defineConfig({
   name: 'sanity-template-astro-clean',
-  title: 'Sanity Astro Starter',
+  title: 'Havnegata - handelsgata i Namsos',
   projectId,
   dataset,
   plugins: [structureTool(), visionTool()],

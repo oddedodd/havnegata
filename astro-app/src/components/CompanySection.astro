@@ -1,9 +1,10 @@
 ---
 import { urlFor } from "../utils/image";
-// Props: name, tagline, bgImage (optional)
-const { name, tagline, bgImage, bgColor, textColor, shadowColor } = Astro.props;
+import PortableTextRenderer from "./PortableTextRenderer";
+const { name, tagline, bgImage, bgColor, textColor, shadowColor, body  } = Astro.props;
 
 const bgImageUrl = bgImage ? urlFor(bgImage).width(1200).height(600).url() : null;
+
 ---
 
 <div class="relative h-screen w-full h-96 flex items-center justify-center overflow-hidden rounded-lg" style={`background: ${bgImageUrl ? `url('${bgImageUrl}') center/cover no-repeat` : '#f9e6ef'};`}>
@@ -11,7 +12,7 @@ const bgImageUrl = bgImage ? urlFor(bgImage).width(1200).height(600).url() : nul
   <div class="absolute inset-0 opacity-60" style={`background-color: ${bgColor || '#f9e6ef'};`}></div>
   <!-- Content -->
   <div class="relative z-20 flex flex-col items-center justify-center w-full">
-    <span class="text-xl sm:text-2xl font-body font-light mb-2 tracking-wide" style={`color: ${textColor || '#f9e6ef'};`}>
+    <span class="text-white text-xl sm:text-2xl font-body font-light mb-2 tracking-wide">
       {name}
     </span>
     <h1 class="text-white text-5xl sm:text-6xl font-headline font-extrabold mb-2 px-4" style={`text-shadow: 2px 3px 0 ${shadowColor || '#d48fcf'};`}>
@@ -19,3 +20,9 @@ const bgImageUrl = bgImage ? urlFor(bgImage).width(1200).height(600).url() : nul
     </h1>
   </div>
 </div>
+<div class="min-h-screen w-full" style={`background-color: ${bgColor || '#f9e6ef'};`}>
+  <div class="container mx-auto px-4 py-8">
+    <PortableTextRenderer value={body} client:load />
+  </div>
+</div>
+

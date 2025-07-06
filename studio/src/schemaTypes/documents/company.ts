@@ -39,6 +39,11 @@ export default defineType({
       rows: 4,
     }),
     defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
+    }),
+    defineField({
       name: 'tagline',
       title: 'Tagline',
       type: 'string',
@@ -55,6 +60,21 @@ export default defineType({
       title: 'Background Color',
       type: 'string',
       description: 'Optional background color for the company card (e.g., #f0f0f0)',
+    }),
+    defineField({
+      name: 'bgImage',
+      title: 'Background Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+        }),
+      ],
     }),
     defineField({
       name: 'logo',
