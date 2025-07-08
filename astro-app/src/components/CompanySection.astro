@@ -21,7 +21,7 @@ const bgImageUrl = bgImage ? urlFor(bgImage).width(1200).height(600).url() : nul
   </div>
 </div>
 <div class="min-h-screen w-full" style={`background-color: ${bgColor || '#f9e6ef'};`}>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto px-4 py-8 max-w-3xl">
     <PortableTextRenderer value={body} client:load />
   </div>
 </div>

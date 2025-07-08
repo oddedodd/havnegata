@@ -3,57 +3,20 @@ import { PortableText } from "@portabletext/react";
 import { urlFor } from "../utils/image";
 
 const ImageComponent = ({ value }: { value: any }) => {
-  console.log("🖼️ ImageComponent called with:", {
-    hasAsset: !!value?.asset,
-    assetUrl: value?.asset?.url,
-    alt: value?.alt,
-  });
-
-  if (!value?.asset) {
-    console.log("❌ No asset found in image component");
-    return (
-      <div style={{ padding: "1rem", background: "red", color: "white" }}>
-        ❌ NO ASSET
-      </div>
-    );
-  }
-
   const imageUrl =
     value.asset.url ||
     urlFor(value.asset).width(800).height(600).fit("max").auto("format").url();
-  console.log("✅ Generated image URL:", imageUrl);
 
   return (
-    <div
-      style={{
-        padding: "1rem",
-        background: "green",
-        color: "white",
-        margin: "1rem 0",
-      }}
-    >
-      🖼️ IMAGE COMPONENT WORKING!
-      <figure style={{ margin: "2rem 0" }}>
+    <div className="py-4 text-white my-4">
+      <figure className="my-8">
         <img
           src={imageUrl}
           alt={value.alt || ""}
-          style={{
-            width: "100%",
-            height: "auto",
-            borderRadius: "0.5rem",
-            boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
-          }}
+          className="w-full h-auto rounded-lg"
         />
         {value.caption && (
-          <figcaption
-            style={{
-              marginTop: "0.5rem",
-              fontSize: "0.875rem",
-              color: "#6b7280",
-              textAlign: "center",
-              fontStyle: "italic",
-            }}
-          >
+          <figcaption className="mt-2 font-body text-md text-gray-500 text-center italic">
             {value.caption}
           </figcaption>
         )}
@@ -68,63 +31,24 @@ const components = {
   },
   block: {
     h1: ({ children }: any) => (
-      <h1
-        style={{
-          fontSize: "2.25rem",
-          fontWeight: 700,
-          margin: "2rem 0 1rem 0",
-        }}
-      >
+      <h1 className="text-4xl font-body uppercase font-bold my-8">
         {children}
       </h1>
     ),
     h2: ({ children }: any) => (
-      <h2
-        style={{
-          fontSize: "1.5rem",
-          fontWeight: 700,
-          margin: "1.5rem 0 1rem 0",
-        }}
-      >
-        {children}
-      </h2>
+      <h2 className="text-2xl font-body font-bold my-6">{children}</h2>
     ),
     h3: ({ children }: any) => (
-      <h3
-        style={{
-          fontSize: "1.25rem",
-          fontWeight: 700,
-          margin: "1rem 0 0.75rem 0",
-        }}
-      >
-        {children}
-      </h3>
+      <h3 className="text-xl font-body font-bold my-4">{children}</h3>
     ),
     h4: ({ children }: any) => (
-      <h4
-        style={{
-          fontSize: "1.125rem",
-          fontWeight: 700,
-          margin: "0.75rem 0 0.5rem 0",
-        }}
-      >
-        {children}
-      </h4>
+      <h4 className="text-lg font-body font-bold my-3">{children}</h4>
     ),
     normal: ({ children }: any) => (
-      <p style={{ margin: "0 0 1rem 0" }}>{children}</p>
+      <p className="mb-4 font-body text-lg">{children}</p>
     ),
     blockquote: ({ children }: any) => (
-      <blockquote
-        style={{
-          borderLeft: "4px solid #a78bfa",
-          paddingLeft: "1rem",
-          fontStyle: "italic",
-          background: "#f3e8ff",
-          margin: "1.5rem 0",
-          borderRadius: "0.5rem",
-        }}
-      >
+      <blockquote className="border-l-4 border-purple-400 pl-4 italic bg-purple-50 my-6 rounded-lg">
         {children}
       </blockquote>
     ),
@@ -137,7 +61,7 @@ const components = {
         href={value.href}
         target="_blank"
         rel="noopener noreferrer"
-        style={{ color: "#a78bfa", textDecoration: "underline" }}
+        className="text-purple-400 underline"
       >
         {children}
       </a>
