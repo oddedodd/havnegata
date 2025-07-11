@@ -77,6 +77,53 @@ export async function getCompany(slug: string): Promise<Company> {
   );
 }
 
+export async function getTilbud(): Promise<Tilbud[]> {
+  return await sanityClient.fetch(
+    groq`*[_type == "tilbud"] | order(_createdAt desc){
+      ...,
+      image{
+        ...,
+        asset->
+      },
+      company->
+    }`
+  );
+}
+
+export async function getTilbudByCompany(
+  companySlug: string
+): Promise<Tilbud[]> {
+  return await sanityClient.fetch(
+    groq`*[_type == "tilbud" && company->slug.current == $companySlug] | order(_createdAt desc){
+      ...,
+      image{
+        ...,
+        asset->
+      },
+      company->
+    }`,
+    {
+      companySlug,
+    }
+  );
+}
+
+export async function getTilbudBySlug(slug: string): Promise<Tilbud> {
+  return await sanityClient.fetch(
+    groq`*[_type == "tilbud" && slug.current == $slug][0]{
+      ...,
+      image{
+        ...,
+        asset->
+      },
+      company->
+    }`,
+    {
+      slug,
+    }
+  );
+}
+
 export interface Post {
   _type: "post";
   _createdAt: string;
@@ -102,6 +149,21 @@ export interface Company {
   imageGallery?: Array<ImageAsset & { alt?: string; caption?: string }>;
   bgColor?: string;
   bgImage?: ImageAsset & { alt?: string };
+  links?: Array<{
+    title?: string;
+    url?: string;
+  }>;
+}
+
+export interface Tilbud {
+  _type: "tilbud";
+  _createdAt: string;
+  name: string;
+  slug: Slug;
+  description?: string;
+  price?: string;
+  image?: ImageAsset & { alt?: string };
+  company: Company;
   links?: Array<{
     title?: string;
     url?: string;

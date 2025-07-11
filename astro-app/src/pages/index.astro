@@ -3,16 +3,13 @@ import "../styles/global.css";
 import Card from "../components/Card.astro";
 import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
-import { getPosts } from "../utils/sanity";
 import Hero from "../components/Hero.astro";
-import { getCompanies } from "../utils/sanity";
+import { getPosts, getCompanies } from "../utils/sanity";
 import CompanyCard from "../components/CompanyCard.astro";
 import CompanySection from "../components/CompanySection.astro";
-// import Companies from "../components/Companies.astro";
 
 const posts = await getPosts();
 const companies = await getCompanies();
-console.log(companies);
 ---
 
 <Layout title="Velkommen til hyggelig handel i Havnegata - Nisjebutikker i Namsos sentrum">
@@ -34,6 +31,7 @@ console.log(companies);
     {companies.map(company => (
       <CompanySection 
         name={company.name}
+        slug={company.slug.current}
         tagline={company.tagline}
         bgImage={company.featuredImage}
         bgColor={company.bgColor}
