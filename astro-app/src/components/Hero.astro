@@ -8,6 +8,7 @@ import sunIcon from '../../assets/sun.svg';
 import fishIcon from '../../assets/fish.svg';
 import flowerIcon from '../../assets/flower.svg';
 import heartIcon from '../../assets/heart.svg';
+import { Image } from 'astro:assets';
 ---
 
 <section class="w-full h-screen bg-gradient-to-r from-purple-700 via-purple-500 to-pink-300 text-white relative overflow-hidden">
@@ -15,7 +16,7 @@ import heartIcon from '../../assets/heart.svg';
     
     <!-- Image -->
     <div class="w-full md:w-1/2 mb-8 md:mb-0 md:mr-4">
-      <img src={heroImage.src} alt="Havnegata dronebilde" class="w-full h-auto" />
+      <Image src={heroImage} loading="eager" alt="Havnegata dronebilde" class="w-full h-auto rounded-lg" />
     </div>
 
     <!-- Text -->
@@ -30,15 +31,15 @@ import heartIcon from '../../assets/heart.svg';
 
   <!-- Decorative icons -->
   <div class="absolute top-4 left-4">
-    <img src={fishIcon.src} alt="Fisk" class="w-10 h-10" />
+    <Image src={fishIcon} alt="Fisk" class="w-10 h-10" loading="eager" />
   </div>
   <div class="absolute bottom-4 left-8">
-    <img src={dressIcon.src} alt="Dress" class="w-30 h-30" />
+    <Image src={dressIcon} alt="Dress" class="w-30 h-30" loading="eager" />
   </div>
   <div class="absolute bottom-4 right-8 t">
-    <img src={sunIcon.src} alt="Sun" class="w-10 h-10" />
+    <Image src={sunIcon} alt="Sun" class="w-10 h-10" loading="eager" />
   </div>
   <div class="absolute top-4 right-4">
-    <img src={hatIcon.src} alt="Hat" class="w-10 h-10" />
+    <Image src={hatIcon} alt="Hat" class="w-10 h-10" loading="eager" />
   </div>
 </section>

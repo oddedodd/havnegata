@@ -1,5 +1,6 @@
 ---
 import { urlFor } from "../utils/image";
+import { Image } from 'astro:assets';
 
 // Props: name, tagline, image, bgColor, textColor, shadowColor
 const { name, tagline, image, bgColor, textColor, shadowColor } = Astro.props;
@@ -16,12 +17,13 @@ const imageUrl = image ? urlFor(image).width(120).height(120).url() : null;
     <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-32 aspect-square">
       <div class="w-full h-full rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
         {imageUrl ? (
-          <img
+          <Image
             src={imageUrl}
             alt={name}
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover rounded-full"
             width="120"
             height="120"
+            loading="lazy"
           />
         ) : (
           <span class="text-gray-500 text-2xl font-bold">{name.charAt(0)}</span>
