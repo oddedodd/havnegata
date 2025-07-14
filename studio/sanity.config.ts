@@ -1,6 +1,7 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
+import {colorInput} from '@sanity/color-input'
 import {schemaTypes} from './src/schemaTypes'
 
 // Environment variables for project configuration
@@ -12,7 +13,7 @@ export default defineConfig({
   title: 'Havnegata - handelsgata i Namsos',
   projectId,
   dataset,
-  plugins: [structureTool(), visionTool()],
+  plugins: [structureTool(), visionTool(), colorInput()],
   schema: {
     types: schemaTypes,
   },

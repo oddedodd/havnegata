@@ -11,18 +11,18 @@ const bgImageUrl = bgImage ? urlFor(bgImage).width(1200).height(600).url() : nul
 
 <div class="relative h-screen w-full h-96 flex items-center justify-center overflow-hidden rounded-lg" style={`background: ${bgImageUrl ? `url('${bgImageUrl}') center/cover no-repeat` : '#f9e6ef'};`}>
   <!-- Overlay for pastel effect -->
-  <div class="absolute inset-0 opacity-60" style={`background-color: ${bgColor || '#f9e6ef'};`}></div>
+  <div class="absolute inset-0 opacity-60" style={`background-color: ${bgColor.hex || '#f9e6ef'};`}></div>
   <!-- Content -->
   <div class="relative z-20 flex flex-col items-center justify-center w-full">
     <span class="text-white text-xl sm:text-2xl font-body font-light mb-2 tracking-wide">
       {name}
     </span>
-    <h1 class="text-white text-5xl sm:text-6xl font-headline font-extrabold mb-2 px-4" style={`text-shadow: 2px 3px 0 ${shadowColor || '#d48fcf'};`}>
+    <h1 class="text-white text-5xl sm:text-6xl font-headline font-extrabold mb-2 px-4" style={`text-shadow: 2px 3px 0 ${shadowColor.hex || '#d48fcf'};`}>
       {tagline}
     </h1>
   </div>
 </div>
-<div class="min-h-screen w-full" style={`background-color: ${bgColor || '#f9e6ef'};`}>
+<div class="min-h-screen w-full" style={`background-color: ${bgColor.hex || '#f9e6ef'};`}>
   <div class="container mx-auto px-4 py-8 max-w-3xl">
     <PortableTextRenderer value={body} client:load />
   </div>
@@ -30,7 +30,7 @@ const bgImageUrl = bgImage ? urlFor(bgImage).width(1200).height(600).url() : nul
 
 {tilbud && tilbud.length > 0 && (
   <div class="container mx-auto px-4 py-8 max-w-3xl">
-    <h2 class="text-2xl font-bold mb-6 text-center" style={`color: ${textColor || '#222'}`}>Tilbud fra {name}</h2>
+    <h2 class="text-2xl font-bold mb-6 text-center" style={`color: ${textColor.hex || '#222'}`}>Tilbud fra {name}</h2>
     <div class="grid gap-6">
       {tilbud.map((item) => (
         <div class="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center" style="overflow: hidden;">
@@ -43,7 +43,7 @@ const bgImageUrl = bgImage ? urlFor(bgImage).width(1200).height(600).url() : nul
             />
           )}
           <div class="flex-1">
-            <h3 class="text-xl font-semibold mb-2" style={`color: ${textColor || '#222'}`}>{item.name}</h3>
+            <h3 class="text-xl font-semibold mb-2" style={`color: ${textColor.hex || '#222'}`}>{item.name}</h3>
             {item.price && (
               <div class="text-lg font-bold mb-2 text-purple-700">{item.price}</div>
             )}
