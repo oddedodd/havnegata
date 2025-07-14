@@ -20,7 +20,7 @@ export default defineType({
       name: 'textColor',
       title: 'Text Color',
       type: 'string',
-      description: 'Color for the company name text (e.g., #333333)',
+      description: 'Color for the company name text (e.g., #000000)',
     }),
     defineField({
       name: 'slug',
