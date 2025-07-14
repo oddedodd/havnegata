@@ -6,12 +6,13 @@ import { Image } from 'astro:assets';
 const { name, tagline, image, bgColor, textColor, shadowColor } = Astro.props;
 
 const imageUrl = image ? urlFor(image).width(120).height(120).url() : null; 
+console.log(bgColor.hex);
 ---
 
 <div class="w-full flex justify-center sm:justify-normal">
   <div
     class="relative flex flex-col items-center text-center rounded-md p-6 pt-20 mt-24 w-full h-48 "
-    style={`background-color: ${bgColor || '#f9f9f9'}`}
+    style={`background-color: ${bgColor.hex || '#f9f9f9'}`}
   >
     <!-- Image: absolute, centered, overlaps top -->
     <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-32 aspect-square">
@@ -32,13 +33,13 @@ const imageUrl = image ? urlFor(image).width(120).height(120).url() : null;
     </div>
     <p 
       class="text-xs font-body font-medium uppercase tracking-wide mt-0" 
-      style={`color: ${textColor || '#6b7280'}`}
+      style={`color: ${textColor.hex || '#6b7280'}`}
     >
       {name}
     </p>
     <h2 
       class="text-2xl text-white font-headline font-bold mt-2" 
-      style={`text-shadow: 2px 3px 0 ${shadowColor || '#000000'}`}
+      style={`text-shadow: 2px 3px 0 ${shadowColor.hex || '#000000'}`}
     >
       {tagline}
     </h2>

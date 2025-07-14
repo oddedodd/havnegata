@@ -19,8 +19,8 @@ export default defineType({
     defineField({
       name: 'textColor',
       title: 'Text Color',
-      type: 'string',
-      description: 'Color for the company name text (e.g., #000000)',
+      type: 'color',
+      description: 'Color for the company name text',
     }),
     defineField({
       name: 'slug',
@@ -52,14 +52,14 @@ export default defineType({
     defineField({
       name: 'shadowColor',
       title: 'Shadow Color',
-      type: 'string',
-      description: 'Color for the tagline text shadow (e.g., #000000)',
+      type: 'color',
+      description: 'Color for the tagline text shadow',
     }),
     defineField({
       name: 'bgColor',
       title: 'Background Color',
-      type: 'string',
-      description: 'Optional background color for the company card (e.g., #f0f0f0)',
+      type: 'color',
+      description: 'Optional background color for the company card',
     }),
     defineField({
       name: 'bgImage',
