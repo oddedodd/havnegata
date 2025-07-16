@@ -1,5 +1,6 @@
 @import url("https://use.typekit.net/oks5qqb.css");
 @import "tailwindcss";
+@import "./slider.css"; 
 
 @theme {
   /* COLORS */

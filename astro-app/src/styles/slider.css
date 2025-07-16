@@ -1,0 +1,84 @@
+/* Custom styles for OfferSlider Swiper component */
+
+.offer-swiper {
+  padding: 20px 0 40px 0; /* Add padding for navigation arrows and pagination */
+}
+
+/* Navigation arrows styling */
+.offer-swiper .swiper-button-next,
+.offer-swiper .swiper-button-prev {
+  color: #7c3aed; /* Purple color to match the theme */
+  background: rgba(255, 255, 255, 0.9);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.offer-swiper .swiper-button-next:hover,
+.offer-swiper .swiper-button-prev:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+.offer-swiper .swiper-button-next::after,
+.offer-swiper .swiper-button-prev::after {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Pagination dots styling */
+.offer-swiper .swiper-pagination-bullet {
+  background: #d1d5db;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.offer-swiper .swiper-pagination-bullet-active {
+  background: #7c3aed;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Card hover effects */
+.offer-swiper .swiper-slide {
+  transition: transform 0.3s ease;
+}
+
+.offer-swiper .swiper-slide:hover {
+  transform: translateY(-4px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .offer-swiper {
+    padding: 10px 0 30px 0;
+  }
+  
+  .offer-swiper .swiper-button-next,
+  .offer-swiper .swiper-button-prev {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .offer-swiper .swiper-button-next::after,
+  .offer-swiper .swiper-button-prev::after {
+    font-size: 14px;
+  }
+}
+
+/* Touch-friendly spacing for mobile */
+@media (max-width: 640px) {
+  .offer-swiper .swiper-button-next,
+  .offer-swiper .swiper-button-prev {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+.offer-swiper * {
+  transition: all 0.3s ease;
+} 

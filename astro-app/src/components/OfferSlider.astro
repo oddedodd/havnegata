@@ -2,12 +2,13 @@
 /**
  * OfferSlider Component
  * 
- * A flexible component for displaying offers/tilbud in a card-based layout.
+ * A flexible component for displaying offers/tilbud in a card-based slider layout.
  * Can be used to show all offers or filter by company-specific offers.
  * 
  * @component
- * @description Displays a grid of offer cards with images, titles, prices, descriptions, and links.
+ * @description Displays a slider of offer cards with images, titles, prices, descriptions, and links.
  * Each card shows an offer with optional image, pricing, description, and action links.
+ * Features mobile-friendly swipe gestures and responsive design.
  * 
  * @example
  * // Basic usage - shows all offers with default styling
@@ -55,68 +56,37 @@
  * - image?: ImageAsset - Offer image with alt text
  * - links?: Array<{title?: string, url?: string}> - Action links
  * - company: Company - Associated company information
+ * 
+ * SLIDER FEATURES:
+ * - Mobile-friendly swipe gestures
+ * - Responsive design (1 card on mobile, 2 on tablet, 3 on desktop)
+ * - Auto-play with pause on interaction
+ * - Navigation arrows and pagination dots
+ * - Smooth transitions and animations
  */
 
-import { urlFor } from "../utils/image";
 import { getAllTilbud, type Tilbud } from "../utils/sanity";
+import OfferSliderReact from "./OfferSlider";
 
-// interface Props {
-//   tilbud?: Tilbud[];
-//   title?: string;
-//   textColor?: { hex: string };
-//   companyName?: string;
-// }
+interface Props {
+  tilbud?: Tilbud[];
+  title?: string;
+  textColor?: { hex: string };
+  companyName?: string;
+}
 
 const { tilbud: passedTilbud, title, textColor = { hex: '#222' }, companyName } = Astro.props;
 
 // If no tilbud passed, fetch all tilbud from Sanity
 const tilbud = passedTilbud || await getAllTilbud();
-
-// Generate title
-const displayTitle = title || (companyName ? `Tilbud fra ${companyName}` : "Tilbud");
 ---
 
 {tilbud && tilbud.length > 0 && (
-  <div class="container mx-auto px-4 py-8 max-w-3xl">
-    <h2 class="text-2xl font-bold mb-6 text-center" style={`color: ${textColor.hex}`}>{displayTitle}</h2>
-    <div class="grid gap-6">
-      {tilbud.map((item: Tilbud) => (
-        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center" style="overflow: hidden;">
-          {item.image && item.image.asset && (
-            <img
-              src={urlFor(item.image).width(400).height(400).url()}
-              alt={item.image.alt || item.name}
-              class="w-full md:w-48 h-48 object-cover rounded-lg mb-4 md:mb-0 md:mr-6"
-              loading="lazy"
-            />
-          )}
-          <div class="flex-1">
-            <h3 class="text-xl font-semibold mb-2" style={`color: ${textColor.hex}`}>{item.name}</h3>
-            {item.price && (
-              <div class="text-lg font-bold mb-2 text-purple-700">{item.price}</div>
-            )}
-            {item.description && (
-              <p class="mb-2 text-gray-700">{item.description}</p>
-            )}
-            {item.links && item.links.length > 0 && (
-              <div class="mt-2 flex flex-wrap gap-2">
-                {item.links.map((link: { title?: string; url?: string }) => (
-                  link.url && (
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded hover:bg-purple-200 transition"
-                    >
-                      {link.title || "Les mer"}
-                    </a>
-                  )
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
+  <OfferSliderReact 
+    tilbud={tilbud}
+    textColor={textColor}
+    title={title}
+    companyName={companyName}
+    client:load
+  />
 )} 
