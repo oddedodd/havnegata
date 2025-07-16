@@ -90,6 +90,19 @@ export async function getTilbud(): Promise<Tilbud[]> {
   );
 }
 
+export async function getAllTilbud(): Promise<Tilbud[]> {
+  return await sanityClient.fetch(
+    groq`*[_type == "tilbud"] | order(_createdAt desc){
+      ...,
+      image{
+        ...,
+        asset->
+      },
+      company->
+    }`
+  );
+}
+
 export async function getTilbudByCompany(
   companySlug: string
 ): Promise<Tilbud[]> {

@@ -1,0 +1,122 @@
+---
+/**
+ * OfferSlider Component
+ * 
+ * A flexible component for displaying offers/tilbud in a card-based layout.
+ * Can be used to show all offers or filter by company-specific offers.
+ * 
+ * @component
+ * @description Displays a grid of offer cards with images, titles, prices, descriptions, and links.
+ * Each card shows an offer with optional image, pricing, description, and action links.
+ * 
+ * @example
+ * // Basic usage - shows all offers with default styling
+ * <OfferSlider />
+ * 
+ * @example
+ * // Company-specific offers with custom text color
+ * <OfferSlider 
+ *   tilbud={companyTilbud} 
+ *   textColor={{ hex: '#333' }} 
+ *   companyName="Company Name" 
+ * />
+ * 
+ * @example
+ * // Custom title with company offers
+ * <OfferSlider 
+ *   tilbud={tilbud} 
+ *   title="Special Offers" 
+ *   textColor={{ hex: '#666' }} 
+ * />
+ * 
+ * USAGE PATTERNS:
+ * 
+ * 1. GLOBAL OFFERS (index.astro):
+ *    - Used without props to display all offers from Sanity
+ *    - Automatically fetches all tilbud using getAllTilbud()
+ *    - Uses default text color (#222) and generic title "Tilbud"
+ * 
+ * 2. COMPANY-SPECIFIC OFFERS (CompanySection.astro):
+ *    - Receives pre-filtered tilbud for a specific company
+ *    - Uses company's textColor for consistent branding
+ *    - Displays company name in title: "Tilbud fra [Company Name]"
+ *    - Maintains visual consistency with company's color scheme
+ * 
+ * PROPS:
+ * - tilbud?: Tilbud[] - Array of offer objects (optional, fetches all if not provided)
+ * - title?: string - Custom title for the section (optional)
+ * - textColor?: { hex: string } - Text color for titles (defaults to #222)
+ * - companyName?: string - Company name for title generation (optional)
+ * 
+ * DATA STRUCTURE (Tilbud):
+ * - name: string - Offer name/title
+ * - price?: string - Price information
+ * - description?: string - Offer description
+ * - image?: ImageAsset - Offer image with alt text
+ * - links?: Array<{title?: string, url?: string}> - Action links
+ * - company: Company - Associated company information
+ */
+
+import { urlFor } from "../utils/image";
+import { getAllTilbud, type Tilbud } from "../utils/sanity";
+
+// interface Props {
+//   tilbud?: Tilbud[];
+//   title?: string;
+//   textColor?: { hex: string };
+//   companyName?: string;
+// }
+
+const { tilbud: passedTilbud, title, textColor = { hex: '#222' }, companyName } = Astro.props;
+
+// If no tilbud passed, fetch all tilbud from Sanity
+const tilbud = passedTilbud || await getAllTilbud();
+
+// Generate title
+const displayTitle = title || (companyName ? `Tilbud fra ${companyName}` : "Tilbud");
+---
+
+{tilbud && tilbud.length > 0 && (
+  <div class="container mx-auto px-4 py-8 max-w-3xl">
+    <h2 class="text-2xl font-bold mb-6 text-center" style={`color: ${textColor.hex}`}>{displayTitle}</h2>
+    <div class="grid gap-6">
+      {tilbud.map((item: Tilbud) => (
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center" style="overflow: hidden;">
+          {item.image && item.image.asset && (
+            <img
+              src={urlFor(item.image).width(400).height(400).url()}
+              alt={item.image.alt || item.name}
+              class="w-full md:w-48 h-48 object-cover rounded-lg mb-4 md:mb-0 md:mr-6"
+              loading="lazy"
+            />
+          )}
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold mb-2" style={`color: ${textColor.hex}`}>{item.name}</h3>
+            {item.price && (
+              <div class="text-lg font-bold mb-2 text-purple-700">{item.price}</div>
+            )}
+            {item.description && (
+              <p class="mb-2 text-gray-700">{item.description}</p>
+            )}
+            {item.links && item.links.length > 0 && (
+              <div class="mt-2 flex flex-wrap gap-2">
+                {item.links.map((link: { title?: string; url?: string }) => (
+                  link.url && (
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded hover:bg-purple-200 transition"
+                    >
+                      {link.title || "Les mer"}
+                    </a>
+                  )
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)} 
