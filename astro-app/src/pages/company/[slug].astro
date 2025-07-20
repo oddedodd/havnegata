@@ -1,10 +1,12 @@
 ---
+import "../../styles/global.css";
 import type { InferGetStaticParamsType } from "astro";
 import Layout from "../../layouts/Layout.astro";
 import { getCompany, getCompanies } from "../../utils/sanity";
 import { urlFor } from "../../utils/image";
 import OfferSlider from "../../components/OfferSlider";
 import PortableTextRenderer from "../../components/PortableTextRenderer";
+import CompanySection from "../../components/CompanySection.astro";
 
 export async function getStaticPaths() {
   const companies = await getCompanies();
@@ -22,96 +24,21 @@ const company = await getCompany(slug);
 if (!company) {
   return Astro.redirect('/404');
 }
+
 ---
-
 <Layout title={`${company.name} - Havnegata`}>
-  <!-- Hero Section with Company Info -->
-  <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
-    {company.bgImage ? (
-      <img
-        src={urlFor(company.bgImage).width(1200).height(600).url()}
-        alt={company.bgImage.alt || company.name}
-        class="absolute inset-0 w-full h-full object-cover"
-      />
-    ) : (
-      <div class="absolute inset-0 w-full h-full" style={`background-color: ${company.bgColor?.hex || '#f9e6ef'};`}></div>
-    )}
-    
-    <!-- Overlay for better text readability -->
-    <div class="absolute inset-0 opacity-60" style={`background-color: ${company.bgColor?.hex || '#f9e6ef'};`}></div>
-    
-    <!-- Content -->
-    <div class="relative z-20 flex flex-col items-center justify-center w-full text-center px-4">
-      <span class="text-white text-xl sm:text-2xl font-body font-light mb-2 tracking-wide">
-        {company.name}
-      </span>
-      {company.tagline && (
-        <h1 class="text-white text-5xl sm:text-6xl font-headline font-extrabold mb-2 px-4" style={`text-shadow: 2px 3px 0 ${company.shadowColor?.hex || '#d48fcf'};`}>
-          {company.tagline}
-        </h1>
-      )}
-      {company.description && (
-        <p class="text-white text-lg sm:text-xl max-w-2xl mt-4 font-body">
-          {company.description}
-        </p>
-      )}
-    </div>
-  </section>
 
-  <!-- Company Content Section -->
-  <section class="min-h-screen w-full" style={`background-color: ${company.bgColor?.hex || '#f9e6ef'};`}>
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-      <!-- Company Logo/Image -->
-      {company.logo && (
-        <div class="flex justify-center mb-8">
-          <img
-            src={urlFor(company.logo).width(300).height(200).url()}
-            alt={company.logo.alt || `${company.name} logo`}
-            class="max-w-xs max-h-32 object-contain"
-          />
-        </div>
-      )}
 
-      <!-- Company Body Content -->
-      {company.body && company.body.length > 0 && (
-        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <div class="prose prose-lg max-w-none">
-            <PortableTextRenderer value={company.body} client:load />
-          </div>
-        </div>
-      )}
-
-      <!-- Company Links -->
-      {company.links && company.links.length > 0 && (
-        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 class="text-2xl font-bold mb-4" style={`color: ${company.textColor?.hex || '#333'};`}>
-            Kontakt & Lenker
-          </h2>
-          <div class="flex flex-wrap gap-4">
-            {company.links.map((link) => (
-              link.url && (
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-block bg-purple-100 text-purple-700 px-4 py-2 rounded-md hover:bg-purple-200 transition-colors duration-200 font-medium"
-                >
-                  {link.title || "Besøk nettsted"}
-                </a>
-              )
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  </section>
-
-  <!-- Company Offers Section -->
-  <div class="bg-white">
-    <OfferSlider companyName={company.name} client:load />
-  </div>
-
-  <!-- Back to Home -->
+  <CompanySection 
+    name={company.name}
+    slug={company.slug.current}
+    tagline={company.tagline}
+    bgImage={company.featuredImage}
+    bgColor={company.bgColor}
+    textColor={company.textColor}
+    shadowColor={company.shadowColor}
+    body={company.body}
+  />
   <section class="bg-gray-50 py-8">
     <div class="container mx-auto px-4 text-center">
       <a
@@ -123,23 +50,3 @@ if (!company) {
     </div>
   </section>
 </Layout>
-
-<style>
-  .prose {
-    color: #333;
-  }
-  
-  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
-    color: #333;
-    font-weight: 600;
-  }
-  
-  .prose a {
-    color: #8b5cf6;
-    text-decoration: underline;
-  }
-  
-  .prose a:hover {
-    color: #7c3aed;
-  }
-</style> 

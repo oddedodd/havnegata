@@ -8,6 +8,10 @@ const { name, slug, tagline, bgImage, bgColor, textColor, shadowColor, body  } =
 const tilbud = await getTilbudByCompany(slug);
 const bgImageUrl = bgImage ? urlFor(bgImage).width(1200).height(600).url() : null;
 
+
+
+
+
 ---
 
 <div class="relative h-screen w-full h-96 flex items-center justify-center overflow-hidden rounded-lg" style={`background: ${bgImageUrl ? `url('${bgImageUrl}') center/cover no-repeat` : '#f9e6ef'};`}>

@@ -44,6 +44,14 @@ export async function getCompanies(): Promise<Company[]> {
         ...,
         asset->
       },
+      logo{
+        ...,
+        asset->
+      },
+      featuredImage{
+        ...,
+        asset->
+      },
       body[]{
         ...,
         _type == "image" => {
@@ -60,6 +68,14 @@ export async function getCompany(slug: string): Promise<Company> {
     groq`*[_type == "company" && slug.current == $slug][0]{
       ...,
       bgImage{
+        ...,
+        asset->
+      },
+      logo{
+        ...,
+        asset->
+      },
+      featuredImage{
         ...,
         asset->
       },
