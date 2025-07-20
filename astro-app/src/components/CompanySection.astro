@@ -1,6 +1,7 @@
 ---
 import { urlFor } from "../utils/image";
 import PortableTextRenderer from "./PortableTextRenderer";
+import OfferSlider from "./OfferSlider";
 import { getTilbudByCompany } from "../utils/sanity";
 
 const { name, slug, tagline, bgImage, bgColor, textColor, shadowColor, body  } = Astro.props;
@@ -28,47 +29,4 @@ const bgImageUrl = bgImage ? urlFor(bgImage).width(1200).height(600).url() : nul
   </div>
 </div>
 
-{tilbud && tilbud.length > 0 && (
-  <div class="container mx-auto px-4 py-8 max-w-3xl">
-    <h2 class="text-2xl font-bold mb-6 text-center" style={`color: ${textColor.hex || '#222'}`}>Tilbud fra {name}</h2>
-    <div class="grid gap-6">
-      {tilbud.map((item) => (
-        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center" style="overflow: hidden;">
-          {item.image && item.image.asset && (
-            <img
-              src={item.image.asset.url}
-              alt={item.image.alt || item.name}
-              class="w-full md:w-48 h-48 object-cover rounded-lg mb-4 md:mb-0 md:mr-6"
-              loading="lazy"
-            />
-          )}
-          <div class="flex-1">
-            <h3 class="text-xl font-semibold mb-2" style={`color: ${textColor.hex || '#222'}`}>{item.name}</h3>
-            {item.price && (
-              <div class="text-lg font-bold mb-2 text-purple-700">{item.price}</div>
-            )}
-            {item.description && (
-              <p class="mb-2 text-gray-700">{item.description}</p>
-            )}
-            {item.links && item.links.length > 0 && (
-              <div class="mt-2 flex flex-wrap gap-2">
-                {item.links.map((link) => (
-                  link.url && (
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded hover:bg-purple-200 transition"
-                    >
-                      {link.title || "Les mer"}
-                    </a>
-                  )
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-)}
+<OfferSlider tilbud={tilbud} textColor={textColor} companyName={name} client:load />
