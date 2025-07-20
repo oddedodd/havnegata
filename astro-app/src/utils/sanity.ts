@@ -44,6 +44,14 @@ export async function getCompanies(): Promise<Company[]> {
         ...,
         asset->
       },
+      logo{
+        ...,
+        asset->
+      },
+      featuredImage{
+        ...,
+        asset->
+      },
       body[]{
         ...,
         _type == "image" => {
@@ -60,6 +68,14 @@ export async function getCompany(slug: string): Promise<Company> {
     groq`*[_type == "company" && slug.current == $slug][0]{
       ...,
       bgImage{
+        ...,
+        asset->
+      },
+      logo{
+        ...,
+        asset->
+      },
+      featuredImage{
         ...,
         asset->
       },
@@ -155,12 +171,12 @@ export interface Company {
   description?: string;
   body: PortableTextBlock[];
   tagline?: string;
-  textColor?: string;
-  shadowColor?: string;
+  textColor?: { hex: string };
+  shadowColor?: { hex: string };
   logo?: ImageAsset & { alt?: string };
   featuredImage?: ImageAsset & { alt?: string; caption?: string };
   imageGallery?: Array<ImageAsset & { alt?: string; caption?: string }>;
-  bgColor?: string;
+  bgColor?: { hex: string };
   bgImage?: ImageAsset & { alt?: string };
   links?: Array<{
     title?: string;

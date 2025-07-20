@@ -1,0 +1,52 @@
+---
+import "../../styles/global.css";
+import type { InferGetStaticParamsType } from "astro";
+import Layout from "../../layouts/Layout.astro";
+import { getCompany, getCompanies } from "../../utils/sanity";
+import { urlFor } from "../../utils/image";
+import OfferSlider from "../../components/OfferSlider";
+import PortableTextRenderer from "../../components/PortableTextRenderer";
+import CompanySection from "../../components/CompanySection.astro";
+
+export async function getStaticPaths() {
+  const companies = await getCompanies();
+  return companies.map((company) => ({
+    params: { slug: company.slug.current },
+  }));
+}
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+const { slug } = Astro.params as Params;
+
+const company = await getCompany(slug);
+
+// If company doesn't exist, redirect to 404
+if (!company) {
+  return Astro.redirect('/404');
+}
+
+---
+<Layout title={`${company.name} - Havnegata`}>
+
+
+  <CompanySection 
+    name={company.name}
+    slug={company.slug.current}
+    tagline={company.tagline}
+    bgImage={company.featuredImage}
+    bgColor={company.bgColor}
+    textColor={company.textColor}
+    shadowColor={company.shadowColor}
+    body={company.body}
+  />
+  <section class="bg-gray-50 py-8">
+    <div class="container mx-auto px-4 text-center">
+      <a
+        href="/"
+        class="inline-block bg-gray-800 text-white px-6 py-3 rounded-md hover:bg-gray-700 transition-colors duration-200 font-medium"
+      >
+        ← Tilbake til forsiden
+      </a>
+    </div>
+  </section>
+</Layout>
