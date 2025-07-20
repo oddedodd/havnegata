@@ -155,12 +155,12 @@ export interface Company {
   description?: string;
   body: PortableTextBlock[];
   tagline?: string;
-  textColor?: string;
-  shadowColor?: string;
+  textColor?: { hex: string };
+  shadowColor?: { hex: string };
   logo?: ImageAsset & { alt?: string };
   featuredImage?: ImageAsset & { alt?: string; caption?: string };
   imageGallery?: Array<ImageAsset & { alt?: string; caption?: string }>;
-  bgColor?: string;
+  bgColor?: { hex: string };
   bgImage?: ImageAsset & { alt?: string };
   links?: Array<{
     title?: string;
