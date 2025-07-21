@@ -1,16 +1,12 @@
 ---
 import "../styles/global.css";
-import Card from "../components/Card.astro";
-import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
-import { getPosts, getCompanies } from "../utils/sanity";
+import { getCompanies } from "../utils/sanity";
 import CompanyCard from "../components/CompanyCard.astro";
 import CompanySection from "../components/CompanySection.astro";
 import OfferSlider from "../components/OfferSlider";
 
-
-const posts = await getPosts();
 const companies = await getCompanies();
 
 ---
@@ -18,7 +14,7 @@ const companies = await getCompanies();
 <Layout title="Velkommen til hyggelig handel i Havnegata - Nisjebutikker i Namsos sentrum">
   <Hero />
   <!-- Show all tilbud -->
-<OfferSlider companyName="NA Kreativ" client:load />
+<OfferSlider companyName="butikker i Havnegata" client:load />
   <!-- <Companies /> -->
   <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
     {companies.map(company => (
@@ -34,7 +30,7 @@ const companies = await getCompanies();
   </section>
   <section>
     {companies.map(company => (
-      <CompanySection 
+    <CompanySection 
         name={company.name}
         slug={company.slug.current}
         tagline={company.tagline}
@@ -43,18 +39,19 @@ const companies = await getCompanies();
         textColor={company.textColor}
         shadowColor={company.shadowColor}
         body={company.body}
+        links={company.links}
       />
     ))}
   </section>
   <section>
-    {companies.length ? companies.map((company) => (
+    <!-- {companies.length ? companies.map((company) => (
       <div>
         <h2>{company.name}</h2>
       </div>
-    )) : <Welcome />}
+    )) : <Welcome />} -->
   </section>
   <section>
-    {posts.length ? posts.map((post) => <Card post={post} />) : <Welcome />}
+    <!-- {posts.length ? posts.map((post) => <Card post={post} />) : <Welcome />} -->
   </section>
   <section>
     
