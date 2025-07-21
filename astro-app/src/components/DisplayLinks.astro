@@ -1,18 +1,40 @@
 ---
+import type { Link } from '../types/link';
+import facebookIcon from '../../assets/facebook.svg';
+import instagramIcon from '../../assets/instagram.svg';
+import twitterIcon from '../../assets/twitter.svg';
+import linkedinIcon from '../../assets/linkedin.svg';
+import youtubeIcon from '../../assets/youtube.svg';
+import linkIcon from '../../assets/link.svg';
+import xIcon from '../../assets/x-twitter.svg';
+import { Image } from 'astro:assets';
+  
 const { links } = Astro.props;
-import { Facebook, Instagram, Twitter, Linkedin, Youtube, Link } from '@lucide/astro';
+
+const socialMediaIcons = {
+  Facebook: facebookIcon,
+  Instagram: instagramIcon,
+  Twitter: twitterIcon,
+  Linkedin: linkedinIcon,
+  Youtube: youtubeIcon,
+  Nettsted: linkIcon,
+  X: xIcon,
+};
+
+// Helper function to get the appropriate icon
+function getIconForPlatform(platformName: string) {
+  return socialMediaIcons[platformName as keyof typeof socialMediaIcons] || linkIcon;
+}  
+
 ---
 
 <div class="container mx-auto px-4 py-8 max-w-3xl">
-  {links.map((link) => (
-    <a href={link.url} class="text-white text-xl sm:text-2xl font-body font-light mb-2 tracking-wide">
-      {link.title}
-    </a>
-  ))}
-  <Facebook />
-  <Instagram />
-  <Twitter />
-  <Linkedin />
-  <Youtube />
-  <Link />
+  <div class="flex items-center justify-center gap-8 mb-12">
+    {links.map((link: Link) => (
+      <a href={link.url} target="_blank" class="flex items-center gap-2 text-black text-lg font-body uppercase hover:underline transition-opacity">
+        <Image src={getIconForPlatform(link.title)} alt={link.title} class="w-6 h-6" />
+        {link.title}
+      </a>
+    ))}
+  </div>
 </div>
