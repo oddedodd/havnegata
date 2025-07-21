@@ -1,5 +1,6 @@
 ---
 const { links } = Astro.props;
+import { Facebook, Instagram, Twitter, Linkedin, Youtube, Link } from '@lucide/astro';
 ---
 
 <div class="container mx-auto px-4 py-8 max-w-3xl">
@@ -8,4 +9,10 @@ const { links } = Astro.props;
       {link.title}
     </a>
   ))}
+  <Facebook />
+  <Instagram />
+  <Twitter />
+  <Linkedin />
+  <Youtube />
+  <Link />
 </div>
