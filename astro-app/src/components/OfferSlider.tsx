@@ -103,6 +103,7 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
       console.log("OfferSlider: No passed tilbud, fetching from Sanity...");
       setLoading(true);
       try {
+        console.log("OfferSlider: About to call getAllTilbud()");
         const allTilbud = await getAllTilbud();
         console.log(
           "OfferSlider: Successfully fetched tilbud, count:",
@@ -111,6 +112,11 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
         setTilbud(allTilbud);
       } catch (error) {
         console.error("OfferSlider: Error fetching tilbud:", error);
+        console.error("OfferSlider: Error details:", {
+          message: error instanceof Error ? error.message : "Unknown error",
+          stack: error instanceof Error ? error.stack : "No stack trace",
+          name: error instanceof Error ? error.name : "Unknown error type",
+        });
       } finally {
         console.log("OfferSlider: Fetch process completed");
         setLoading(false);
