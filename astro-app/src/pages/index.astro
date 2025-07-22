@@ -2,19 +2,20 @@
 import "../styles/global.css";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
-import { getCompanies } from "../utils/sanity";
+import { getCompanies, getAllTilbud } from "../utils/sanity";
 import CompanyCard from "../components/CompanyCard.astro";
 import CompanySection from "../components/CompanySection.astro";
 import OfferSlider from "../components/OfferSlider";
 
 const companies = await getCompanies();
+const allTilbud = await getAllTilbud();
 
 ---
 
 <Layout title="Velkommen til hyggelig handel i Havnegata - Nisjebutikker i Namsos sentrum">
   <Hero />
   <!-- Show all tilbud -->
-<OfferSlider companyName="butikker i Havnegata" client:load />
+<OfferSlider tilbud={allTilbud} companyName="butikker i Havnegata" client:load />
   <!-- <Companies /> -->
   <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
     {companies.map(company => (
