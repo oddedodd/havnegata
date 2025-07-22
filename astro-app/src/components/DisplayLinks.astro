@@ -1,5 +1,10 @@
 ---
-import type { Link } from '../types/link';
+// Define the Link interface inline since it's not exported from a types file
+interface Link {
+  title?: string;
+  url?: string;
+}
+
 import facebookIcon from '../../assets/facebook.svg';
 import instagramIcon from '../../assets/instagram.svg';
 import twitterIcon from '../../assets/twitter.svg';
@@ -31,10 +36,12 @@ function getIconForPlatform(platformName: string) {
 <div class="container mx-auto px-4 py-8 max-w-3xl">
   <div class="flex items-center justify-center gap-8 mb-12">
     {links.map((link: Link) => (
-      <a href={link.url} target="_blank" class="flex items-center gap-2 text-black text-lg font-body uppercase hover:underline transition-opacity">
-        <Image src={getIconForPlatform(link.title)} alt={link.title} class="w-6 h-6" />
-        {link.title}
-      </a>
+      link.url && link.title && (
+        <a href={link.url} target="_blank" class="flex items-center gap-2 text-black text-lg font-body uppercase hover:underline transition-opacity">
+          <Image src={getIconForPlatform(link.title)} alt={link.title} class="w-6 h-6" />
+          {link.title}
+        </a>
+      )
     ))}
   </div>
 </div>

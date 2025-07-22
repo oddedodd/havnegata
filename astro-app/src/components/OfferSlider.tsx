@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import type { Tilbud } from '../utils/sanity';
-import { urlFor } from '../utils/image';
-import { getAllTilbud } from '../utils/sanity';
+import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import type { Tilbud } from "../utils/sanity";
+import { urlFor } from "../utils/image";
+import { getAllTilbud } from "../utils/sanity";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import '../styles/slider.css';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "../styles/slider.css";
 
 /**
  * OfferSlider Component
- * 
+ *
  * A flexible React component for displaying offers/tilbud in a card-based slider layout.
  * Can be used to show all offers or filter by company-specific offers.
- * 
+ *
  * USAGE PATTERNS:
- * 
+ *
  * 1. GLOBAL OFFERS (shows all tilbud from Sanity):
  *    - Used without the 'tilbud' prop
  *    - Component automatically fetches all tilbud using getAllTilbud()
  *    - Example: <OfferSlider companyName="NA Kreativ" client:load />
- * 
+ *
  * 2. COMPANY-SPECIFIC OFFERS (shows filtered tilbud):
  *    - Receives pre-filtered tilbud for a specific company via the 'tilbud' prop
  *    - Uses company's textColor for consistent branding
  *    - Example: <OfferSlider tilbud={companyTilbud} textColor={textColor} companyName={name} client:load />
- * 
+ *
  * DATA FLOW:
  * - If 'tilbud' prop is provided → uses that data directly (no fetching)
  * - If 'tilbud' prop is NOT provided → fetches all tilbud from Sanity automatically
  * - Component handles loading states and error handling internally
- * 
+ *
  * PROPS:
  * - tilbud?: Tilbud[] - Array of offer objects (optional, fetches all if not provided)
  * - title?: string - Custom title for the section (optional)
@@ -42,7 +42,7 @@ import '../styles/slider.css';
  * - autoPlay?: boolean - Enable/disable auto-play (defaults to true)
  * - showNavigation?: boolean - Show/hide navigation arrows (defaults to true)
  * - showPagination?: boolean - Show/hide pagination dots (defaults to true)
- * 
+ *
  * DATA STRUCTURE (Tilbud):
  * - name: string - Offer name/title
  * - price?: string - Price information
@@ -50,7 +50,7 @@ import '../styles/slider.css';
  * - image?: ImageAsset - Offer image with alt text
  * - links?: Array<{title?: string, url?: string}> - Action links
  * - company: Company - Associated company information
- * 
+ *
  * SLIDER FEATURES:
  * - Mobile-friendly swipe gestures
  * - Responsive design (1 card on mobile, 2 on tablet, 3 on desktop)
@@ -70,7 +70,7 @@ interface OfferSliderProps {
 
 const OfferSlider: React.FC<OfferSliderProps> = ({
   tilbud: passedTilbud,
-  textColor = { hex: '#222' },
+  textColor = { hex: "#222" },
   title,
   companyName,
   autoPlay = true,
@@ -97,7 +97,7 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
         const allTilbud = await getAllTilbud();
         setTilbud(allTilbud);
       } catch (error) {
-        console.error('Error fetching tilbud:', error);
+        console.error("Error fetching tilbud:", error);
       } finally {
         setLoading(false);
       }
@@ -108,7 +108,8 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
 
   // Generate title based on props
   // Priority: custom title > company-specific title > default title
-  const displayTitle = title || (companyName ? `Tilbud fra ${companyName}` : "Tilbud");
+  const displayTitle =
+    title || (companyName ? `Tilbud fra ${companyName}` : "Tilbud");
 
   // Show loading state while fetching data
   if (loading) {
@@ -127,13 +128,13 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       {/* Section Title */}
-      <h2 
-        className="text-2xl font-bold mb-6 text-center" 
+      <h2
+        className="text-2xl font-bold mb-6 text-center"
         style={{ color: textColor.hex }}
       >
         {displayTitle}
       </h2>
-      
+
       {/* Swiper Slider */}
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
@@ -141,7 +142,9 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
         slidesPerView={1}
         navigation={showNavigation}
         pagination={showPagination ? { clickable: true } : false}
-        autoplay={autoPlay ? { delay: 5000, disableOnInteraction: false } : false}
+        autoplay={
+          autoPlay ? { delay: 5000, disableOnInteraction: false } : false
+        }
         loop={true}
         // Responsive breakpoints for different screen sizes
         breakpoints={{
@@ -164,58 +167,59 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
         {tilbud.map((item: Tilbud, index: number) => (
           <SwiperSlide key={`tilbud-${index}`}>
             <div className="bg-white rounded-lg shadow-md p-6 h-full flex flex-col">
-              {/* Image Section - Only show if image exists */}
-              {item.image && item.image.asset && (
+              {item.image?.asset ? (
                 <div className="mb-4">
                   <img
-                    src={urlFor(item.image).width(400).height(300).url() as string}
-                    alt={(item.image.alt as string) || item.name}
+                    src={
+                      urlFor(item.image).width(400).height(300).url() as string
+                    }
+                    alt={item.image.alt || item.name}
                     className="w-full h-48 object-cover rounded-lg"
                     loading="lazy"
                   />
                 </div>
-              )}
-              
+              ) : null}
+
               {/* Content Section */}
               <div className="flex-1 flex flex-col">
                 {/* Offer Title */}
-                <h3 
-                  className="text-xl font-semibold mb-2 flex-shrink-0" 
+                <h3
+                  className="text-xl font-semibold mb-2 flex-shrink-0"
                   style={{ color: textColor.hex }}
                 >
                   {item.name}
                 </h3>
-                
+
                 {/* Price - Only show if price exists */}
                 {item.price && (
                   <div className="text-lg font-bold mb-2 text-purple-700 flex-shrink-0">
                     {item.price}
                   </div>
                 )}
-                
+
                 {/* Description - Only show if description exists */}
                 {item.description && (
                   <p className="mb-4 text-gray-700 text-sm flex-1">
                     {item.description}
                   </p>
                 )}
-                
+
                 {/* Action Links Section - Only show if links exist */}
                 {item.links && item.links.length > 0 && (
                   <div className="mt-auto flex flex-wrap gap-2">
-                    {item.links.map((link, linkIndex) => (
-                      link.url && (
+                    {item.links
+                      .filter((link) => link.url)
+                      .map((link, linkIndex) => (
                         <a
                           key={linkIndex}
-                          href={link.url}
+                          href={link.url!}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-block bg-purple-100 text-purple-700 px-3 py-2 rounded-md hover:bg-purple-200 transition-colors duration-200 text-sm font-medium"
                         >
                           {link.title || "Les mer"}
                         </a>
-                      )
-                    ))}
+                      ))}
                   </div>
                 )}
               </div>
@@ -227,4 +231,4 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
   );
 };
 
-export default OfferSlider; 
+export default OfferSlider;
