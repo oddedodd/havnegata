@@ -1,10 +1,9 @@
 ---
 import { urlFor } from "../utils/image";
 import { Image } from 'astro:assets';
-// Props: name, tagline, image, bgColor, textColor, shadowColor
+
 const { name, tagline, image, bgColor, textColor, shadowColor } = Astro.props;
 const imageUrl = image ? urlFor(image).width(120).height(120).url() : null; 
-console.log(name);
 ---
 
 <div class="w-full flex justify-center sm:justify-normal">
