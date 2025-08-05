@@ -83,42 +83,22 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
 
   useEffect(() => {
     const fetchTilbud = async () => {
-      console.log("OfferSlider: Starting fetch process");
-      console.log("OfferSlider: passedTilbud exists?", !!passedTilbud);
-      console.log("OfferSlider: Current tilbud state length:", tilbud.length);
-
       // USE CASE 1: Company-specific offers
       // If tilbud is passed as prop, use it directly (no fetching needed)
       if (passedTilbud) {
-        console.log(
-          "OfferSlider: Using passed tilbud, count:",
-          passedTilbud.length
-        );
         setTilbud(passedTilbud);
         return;
       }
 
       // USE CASE 2: Global offers
       // If no tilbud prop provided, fetch all tilbud from Sanity
-      console.log("OfferSlider: No passed tilbud, fetching from Sanity...");
       setLoading(true);
       try {
-        console.log("OfferSlider: About to call getAllTilbud()");
         const allTilbud = await getAllTilbud();
-        console.log(
-          "OfferSlider: Successfully fetched tilbud, count:",
-          allTilbud.length
-        );
         setTilbud(allTilbud);
       } catch (error) {
-        console.error("OfferSlider: Error fetching tilbud:", error);
-        console.error("OfferSlider: Error details:", {
-          message: error instanceof Error ? error.message : "Unknown error",
-          stack: error instanceof Error ? error.stack : "No stack trace",
-          name: error instanceof Error ? error.name : "Unknown error type",
-        });
+        console.error("Error fetching tilbud:", error);
       } finally {
-        console.log("OfferSlider: Fetch process completed");
         setLoading(false);
       }
     };
@@ -133,7 +113,6 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
 
   // Show loading state while fetching data
   if (loading) {
-    console.log("OfferSlider: Rendering loading state");
     return (
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="text-center">Loading tilbud...</div>
@@ -141,28 +120,10 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
     );
   }
 
-  // Show fallback if no tilbud available
+  // If there are no tilbud, render nothing (return null)
   if (!tilbud || tilbud.length === 0) {
-    console.log("OfferSlider: No tilbud available, showing fallback");
-    return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
-        <h2
-          className="text-2xl font-bold mb-6 text-center"
-          style={{ color: textColor.hex }}
-        >
-          {displayTitle}
-        </h2>
-        <div className="text-center text-gray-500">
-          <p>Loading tilbud...</p>
-          <p className="text-sm mt-2">
-            If this message persists, there might be a connection issue.
-          </p>
-        </div>
-      </div>
-    );
+    return null;
   }
-
-  console.log("OfferSlider: Rendering slider with", tilbud.length, "items");
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
