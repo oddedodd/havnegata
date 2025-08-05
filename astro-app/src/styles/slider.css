@@ -45,7 +45,18 @@
 /* Card hover effects and equal height */
 .offer-swiper .swiper-slide {
   transition: transform 0.3s ease;
-  height: 420px !important; /* Force equal height for all slides */
+  min-height: 420px; /* Minimum height for all slides */
+  height: auto; /* Allow height to grow based on content */
+}
+
+/* Ensure all slides in the same view have equal height */
+.offer-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.offer-swiper .swiper-slide {
+  display: flex;
+  flex-direction: column;
 }
 
 .offer-swiper .swiper-slide:hover {
