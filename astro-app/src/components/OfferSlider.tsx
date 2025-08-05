@@ -166,7 +166,7 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
         {/* Render each tilbud as a slide */}
         {tilbud.map((item: Tilbud, index: number) => (
           <SwiperSlide key={`tilbud-${index}`}>
-            <div className="bg-white rounded-lg shadow-md p-6 h-full flex flex-col">
+            <div className="bg-white rounded-lg border-2 border-gray-200 p-6 h-full flex flex-col">
               {item.image?.asset ? (
                 <div className="mb-4">
                   <img

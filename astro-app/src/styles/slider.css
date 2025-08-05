@@ -42,9 +42,10 @@
   transform: scale(1.2);
 }
 
-/* Card hover effects */
+/* Card hover effects and equal height */
 .offer-swiper .swiper-slide {
   transition: transform 0.3s ease;
+  height: 420px !important; /* Force equal height for all slides */
 }
 
 .offer-swiper .swiper-slide:hover {
