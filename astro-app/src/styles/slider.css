@@ -42,9 +42,21 @@
   transform: scale(1.2);
 }
 
-/* Card hover effects */
+/* Card hover effects and equal height */
 .offer-swiper .swiper-slide {
   transition: transform 0.3s ease;
+  min-height: 320px; /* Minimum height for all slides */
+  height: auto; /* Allow height to grow based on content */
+}
+
+/* Ensure all slides in the same view have equal height */
+.offer-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.offer-swiper .swiper-slide {
+  display: flex;
+  flex-direction: column;
 }
 
 .offer-swiper .swiper-slide:hover {
@@ -56,13 +68,13 @@
   .offer-swiper {
     padding: 10px 0 30px 0;
   }
-  
+
   .offer-swiper .swiper-button-next,
   .offer-swiper .swiper-button-prev {
     width: 36px;
     height: 36px;
   }
-  
+
   .offer-swiper .swiper-button-next::after,
   .offer-swiper .swiper-button-prev::after {
     font-size: 14px;
@@ -81,4 +93,4 @@
 /* Smooth transitions for all interactive elements */
 .offer-swiper * {
   transition: all 0.3s ease;
-} 
+}

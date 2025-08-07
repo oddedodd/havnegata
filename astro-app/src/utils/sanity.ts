@@ -107,7 +107,7 @@ export async function getTilbud(): Promise<Tilbud[]> {
 }
 
 export async function getAllTilbud(): Promise<Tilbud[]> {
-  return await sanityClient.fetch(
+  const tilbud = await sanityClient.fetch(
     groq`*[_type == "tilbud"] | order(_createdAt desc){
       ...,
       image{
@@ -117,6 +117,9 @@ export async function getAllTilbud(): Promise<Tilbud[]> {
       company->
     }`
   );
+
+  // Simple shuffle using sort with random comparison
+  return tilbud.sort(() => Math.random() - 0.5);
 }
 
 export async function getTilbudByCompany(
