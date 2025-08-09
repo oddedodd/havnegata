@@ -7,6 +7,8 @@ import CompanyCard from "../components/CompanyCard.astro";
 import CompanySection from "../components/CompanySection.astro";
 import OfferSlider from "../components/OfferSlider";
 import VideoHero from "../components/VideoHero.astro";
+import { Image } from 'astro:assets';
+import shareIcon from '../../assets/share.svg';
 
 const companies = await getCompanies();
 const allTilbud = await getAllTilbud();
@@ -43,15 +45,9 @@ const allTilbud = await getAllTilbud();
         shadowColor={company.shadowColor}
         body={company.body}
         links={company.links}
+        showOpenInNewTab={true}
       />
     ))}
-  </section>
-  <section>
-    <!-- {companies.length ? companies.map((company) => (
-      <div>
-        <h2>{company.name}</h2>
-      </div>
-    )) : <Welcome />} -->
   </section>
   <section>
     <!-- {posts.length ? posts.map((post) => <Card post={post} />) : <Welcome />} -->
