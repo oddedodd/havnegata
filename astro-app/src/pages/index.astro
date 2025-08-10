@@ -19,7 +19,9 @@ const allTilbud = await getAllTilbud();
   <!-- <Hero /> -->
   <VideoHero />
   <!-- Show all tilbud -->
-<OfferSlider tilbud={allTilbud} companyName="butikker i Havnegata" client:load />
+  <section class="bg-gradient-to-b from-[#FAF7F2] to-white py-12">
+    <OfferSlider tilbud={allTilbud} companyName="butikker i Havnegata" client:load />
+  </section>
   <!-- <Companies /> -->
   <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
     {companies.map(company => (
