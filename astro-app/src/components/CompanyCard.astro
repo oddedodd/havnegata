@@ -1,7 +1,7 @@
 ---
 import { urlFor } from "../utils/image";
 
-const { name, tagline, image, bgColor, textColor, shadowColor } = Astro.props;
+const { name, tagline, image, bgColor, textColor, shadowColor, slug } = Astro.props;
 const imageUrl = image ? urlFor(image).width(120).height(120).url() : null; 
 ---
 
@@ -12,26 +12,28 @@ const imageUrl = image ? urlFor(image).width(120).height(120).url() : null;
   >
     <!-- Image: absolute, centered, overlaps top -->
     <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-32 aspect-square">
-      <div class="w-full h-full rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={name}
-            class="w-full h-full object-cover rounded-full"
-            width="120"
-            height="120"
-            loading="lazy"
-          />
-        ) : (
-          <span class="text-gray-500 text-2xl font-bold">{name.charAt(0)}</span>
-        )}
-      </div>
+      <a href="#" data-target={slug} class="company-link block w-full h-full">
+        <div class="w-full h-full rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={name}
+              class="w-full h-full object-cover rounded-full"
+              width="120"
+              height="120"
+              loading="lazy"
+            />
+          ) : (
+            <span class="text-gray-500 text-2xl font-bold">{name.charAt(0)}</span>
+          )}
+        </div>
+      </a>
     </div>
     <p 
       class="text-xs font-body font-medium uppercase tracking-wide mt-0" 
       style={`color: ${textColor.hex || '#6b7280'}`}
     >
-      {name}
+      <a href="#" data-target={slug} class="company-link hover:underline">{name}</a>
     </p>
     <h2 
       class="text-2xl text-white font-headline font-bold mt-2" 
