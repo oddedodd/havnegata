@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import shareIcon from '../../assets/share.svg';
+
+interface Props {
+  slug: string;
+}
+
+const { slug }: Props = Astro.props;
+---
+
+<div class="container mx-auto px-4 py-12 flex justify-center">
+  <a 
+    href={`/company/${slug}`} 
+    target="_blank" 
+    class="inline-block bg-gray-800 text-white px-6 py-3 rounded-md hover:bg-gray-700 transition-colors duration-200 font-medium"
+  >
+    <Image src={shareIcon} alt="Share" class="w-6 h-6 inline-block mr-2" />
+    Åpne i ny fane
+  </a>
+</div>

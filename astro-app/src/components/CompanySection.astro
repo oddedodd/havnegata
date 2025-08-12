@@ -4,45 +4,77 @@ import PortableTextRenderer from "./PortableTextRenderer";
 import OfferSlider from "./OfferSlider";
 import { getTilbudByCompany } from "../utils/sanity";
 import DisplayLinks from "./DisplayLinks.astro";
+import OpenInNewTabButton from "./OpenInNewTabButton.astro";
 
-import { Image } from 'astro:assets';
-import shareIcon from '../../assets/share.svg';
+interface Props {
+  name: string;
+  slug: string;
+  tagline?: string;
+  bgImage?: any;
+  bgColor?: { hex: string };
+  textColor?: { hex: string };
+  shadowColor?: { hex: string };
+  body?: any;
+  links?: any;
+  showOpenInNewTab?: boolean;
+}
 
-const { name, slug, tagline, bgImage, bgColor, textColor, shadowColor, body, links  } = Astro.props;
+const { 
+  name, 
+  slug, 
+  tagline = '', 
+  bgImage, 
+  bgColor, 
+  textColor, 
+  shadowColor, 
+  body, 
+  links,
+  showOpenInNewTab = false 
+}: Props = Astro.props;
+
 const tilbud = await getTilbudByCompany(slug);
 const bgImageUrl = bgImage ? urlFor(bgImage).width(1200).height(600).url() : null;
-
-// const linkUrl = links ? links.url : null;
-// console.log(links);
-// // console.log(linkUrl);
-
-
+const bgColorHex = bgColor?.hex || '#f9e6ef';
+const shadowColorHex = shadowColor?.hex || '#d48fcf';
 ---
 
-<div class="relative h-screen w-full h-96 flex items-center justify-center overflow-hidden rounded-lg" style={`background: ${bgImageUrl ? `url('${bgImageUrl}') center/cover no-repeat` : '#f9e6ef'};`}>
+<!-- Hero Section -->
+<div 
+  class="relative h-screen w-full h-96 flex items-center justify-center overflow-hidden rounded-lg" 
+  style={`background: ${bgImageUrl ? `url('${bgImageUrl}') center/cover no-repeat` : bgColorHex};`}
+>
   <!-- Overlay for pastel effect -->
-  <div class="absolute inset-0 opacity-60" style={`background-color: ${bgColor.hex || '#f9e6ef'};`}></div>
+  <div 
+    class="absolute inset-0 opacity-60" 
+    style={`background-color: ${bgColorHex};`}
+  ></div>
+  
   <!-- Content -->
   <div class="relative z-20 flex flex-col items-center justify-center w-full">
     <span class="text-white text-xl sm:text-2xl font-body font-light mb-2 tracking-wide">
       {name}
     </span>
-    <h1 class="text-white text-5xl sm:text-6xl font-headline font-extrabold mb-2 px-4" style={`text-shadow: 2px 3px 0 ${shadowColor.hex || '#d48fcf'};`}>
-      {tagline}
-    </h1>
+    {tagline && (
+      <h1 
+        class="text-white text-5xl sm:text-6xl font-headline font-extrabold mb-2 px-4" 
+        style={`text-shadow: 2px 3px 0 ${shadowColorHex};`}
+      >
+        {tagline}
+      </h1>
+    )}
   </div>
 </div>
-<div class="min-h-screen w-full" style={`background-color: ${bgColor.hex || '#f9e6ef'};`}>
-  <div class="container mx-auto px-4 py-8 max-w-3xl">
-    <PortableTextRenderer value={body} client:load />
-  </div>
+
+<!-- Content Section -->
+<div class="min-h-screen w-full" style={`background-color: ${bgColorHex};`}>
+  {body && (
+    <div class="container mx-auto px-4 py-8 max-w-3xl">
+      <PortableTextRenderer value={body} client:load />
+    </div>
+  )}
   <DisplayLinks links={links} />
-  <div class="container mx-auto px-4 py-12 flex justify-center">
-    <a href={`/company/${slug}`} target="_blank" class="flex bg-white rounded-md px-4 py-2 items-center gap-2 text-black text-lg font-body uppercase hover:underline transition-opacity">
-      <Image src={shareIcon} alt="Share" class="w-6 h-6" />
-      Åpne i ny fane
-    </a>
-  </div>
+  
+  {showOpenInNewTab && <OpenInNewTabButton slug={slug} />}
 </div>
 
 <OfferSlider tilbud={tilbud} textColor={textColor} companyName={name} client:load />
