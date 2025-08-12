@@ -28,6 +28,12 @@ const { title } = Astro.props;
     />
 
     <title>{title}</title>
+    
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
   </head>
   <body>
       <main>
@@ -39,5 +45,32 @@ const { title } = Astro.props;
         </div>
       </footer>
     </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Find all company links
+        const companyLinks = document.querySelectorAll('.company-link');
+        
+        companyLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default anchor behavior
+            
+            const targetId = (e.currentTarget as HTMLElement).getAttribute('data-target');
+            if (!targetId) return;
+            
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+              // Smooth scroll to target
+              targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
+
