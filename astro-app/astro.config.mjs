@@ -26,6 +26,7 @@ export default defineConfig({
   // Server output is required to support embedded Sanity Studio
   output: "server",
   adapter: netlify(),
+  site: "https://havnegata-namsos.no", // Replace with your actual domain
   vite: {
     plugins: [tailwindcss()],
   },

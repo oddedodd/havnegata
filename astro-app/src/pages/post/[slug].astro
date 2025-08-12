@@ -22,7 +22,14 @@ const { slug } = Astro.params as Params;
 const post = await getPost(slug);
 ---
 
-<Layout title={post.title!}>
+<Layout 
+  title={post.title!}
+  ogTitle={post.title!}
+  ogDescription={post.excerpt || `Les mer om ${post.title} på Havnegata`}
+  ogUrl={`/post/${post.slug.current}`}
+  ogImage={post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : "/hero-image.jpg"}
+  ogLocale="nb_NO"
+>
   <section class="post">
     {
       post.mainImage ? (

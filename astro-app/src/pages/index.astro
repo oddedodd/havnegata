@@ -7,15 +7,21 @@ import CompanyCard from "../components/CompanyCard.astro";
 import CompanySection from "../components/CompanySection.astro";
 import OfferSlider from "../components/OfferSlider";
 import VideoHero from "../components/VideoHero.astro";
-import { Image } from 'astro:assets';
-import shareIcon from '../../assets/share.svg';
+import { urlFor } from "../utils/image";
 
 const companies = await getCompanies();
 const allTilbud = await getAllTilbud();
 
 ---
 
-<Layout title="Velkommen til hyggelig handel i Havnegata - Nisjebutikker i Namsos sentrum">
+<Layout 
+  title="Velkommen til hyggelig handel i Havnegata - Nisjebutikker i Namsos sentrum"
+  ogTitle="Havnegata - Hyggelig handel i Namsos sentrum"
+  ogDescription="Opplev nisjebutikker og hyggelig handel i Havnegata, hjertet av Namsos. Finn unike produkter og opplevelser i våre lokale butikker."
+  ogUrl=""
+  ogImage="hero-image.jpg"
+  ogLocale="nb_NO"
+>
   <!-- <Hero /> -->
   <VideoHero />
   <!-- Show all tilbud -->
