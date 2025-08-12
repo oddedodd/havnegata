@@ -204,6 +204,16 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
                   </p>
                 )}
 
+                {/* Company Name - Centered */}
+                <div className="text-center mb-2">
+                  <a
+                    href={`/company/${item.company?.slug?.current}`}
+                    className="text-sm font-bold text-gray-600 hover:text-gray-900 transition-colors duration-200 cursor-pointer hover:underline"
+                  >
+                    {item.company?.name}
+                  </a>
+                </div>
+
                 {/* Action Links Section - Only show if links exist */}
                 {item.links && item.links.length > 0 && (
                   <div className="mt-auto flex flex-wrap gap-2">
