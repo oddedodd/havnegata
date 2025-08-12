@@ -1,0 +1,37 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+  locale?: string;
+}
+
+const { 
+  title, 
+  description, 
+  url, 
+  image = "/hero-image.jpg", // Default fallback image
+  locale = "nb_NO" // Default Norwegian locale
+} = Astro.props;
+
+// Ensure URL is absolute
+const fullUrl = url.startsWith('http') ? url : `${Astro.site}${url}`;
+const fullImageUrl = image.startsWith('http') ? image : `${Astro.site}${image}`;
+---
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={fullUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={fullImageUrl} />
+<meta property="og:locale" content={locale} />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={fullUrl} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={fullImageUrl} />
+
+<meta name="description" content={description} />
+<meta property="og:site_name" content="Havnegata" />
