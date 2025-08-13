@@ -2,6 +2,7 @@
 // View transitions are now handled differently in Astro 5
 // https://docs.astro.build/en/guides/view-transitions/
 import OpenGraphTags from "../components/OpenGraphTags.astro";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 
 interface Props {
   title: string;
@@ -57,6 +58,9 @@ const finalOgLocale = ogLocale || "nb_NO";
       image={finalOgImage}
       locale={finalOgLocale}
     />
+    
+    <!-- Google Analytics 4 -->
+    <GoogleAnalytics />
     
     <style>
       html {
