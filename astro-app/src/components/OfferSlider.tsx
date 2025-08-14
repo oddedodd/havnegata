@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import type { Tilbud } from "../utils/sanity";
 import { urlFor } from "../utils/image";
-import { getAllTilbud } from "../utils/sanity";
 
 // Import Swiper styles
 import "swiper/css";
@@ -15,27 +14,24 @@ import "../styles/slider.css";
  * OfferSlider Component
  *
  * A flexible React component for displaying offers/tilbud in a card-based slider layout.
- * Can be used to show all offers or filter by company-specific offers.
+ * Now uses pre-fetched data passed via props - no API calls at runtime!
  *
  * USAGE PATTERNS:
  *
- * 1. GLOBAL OFFERS (shows all tilbud from Sanity):
- *    - Used without the 'tilbud' prop
- *    - Component automatically fetches all tilbud using getAllTilbud()
- *    - Example: <OfferSlider companyName="NA Kreativ" client:load />
+ * 1. GLOBAL OFFERS (shows all tilbud):
+ *    - Pass all tilbud via the 'tilbud' prop
+ *    - Example: <OfferSlider tilbud={allTilbud} companyName="NA Kreativ" client:load />
  *
  * 2. COMPANY-SPECIFIC OFFERS (shows filtered tilbud):
- *    - Receives pre-filtered tilbud for a specific company via the 'tilbud' prop
+ *    - Pass company-specific tilbud via the 'tilbud' prop
  *    - Uses company's textColor for consistent branding
  *    - Example: <OfferSlider tilbud={companyTilbud} textColor={textColor} companyName={name} client:load />
  *
- * DATA FLOW:
- * - If 'tilbud' prop is provided → uses that data directly (no fetching)
- * - If 'tilbud' prop is NOT provided → fetches all tilbud from Sanity automatically
- * - Component handles loading states and error handling internally
+ * IMPORTANT: This component no longer fetches data - it's purely presentational!
+ * All data must be passed via the 'tilbud' prop from the parent component.
  *
  * PROPS:
- * - tilbud?: Tilbud[] - Array of offer objects (optional, fetches all if not provided)
+ * - tilbud: Tilbud[] - Array of offer objects (REQUIRED - no more auto-fetching!)
  * - title?: string - Custom title for the section (optional)
  * - textColor?: { hex: string } - Text color for titles (defaults to #222)
  * - companyName?: string - Company name for title generation (optional)
@@ -59,7 +55,7 @@ import "../styles/slider.css";
  * - Smooth transitions and animations
  */
 interface OfferSliderProps {
-  tilbud?: Tilbud[];
+  tilbud: Tilbud[]; // Now required - no more optional!
   textColor?: { hex: string };
   title?: string;
   companyName?: string;
@@ -69,7 +65,7 @@ interface OfferSliderProps {
 }
 
 const OfferSlider: React.FC<OfferSliderProps> = ({
-  tilbud: passedTilbud,
+  tilbud,
   textColor = { hex: "#222" },
   title,
   companyName,
@@ -77,48 +73,10 @@ const OfferSlider: React.FC<OfferSliderProps> = ({
   showNavigation = true,
   showPagination = true,
 }) => {
-  // State to store the tilbud data (either from props or fetched)
-  const [tilbud, setTilbud] = useState<Tilbud[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchTilbud = async () => {
-      // USE CASE 1: Company-specific offers
-      // If tilbud is passed as prop, use it directly (no fetching needed)
-      if (passedTilbud) {
-        setTilbud(passedTilbud);
-        return;
-      }
-
-      // USE CASE 2: Global offers
-      // If no tilbud prop provided, fetch all tilbud from Sanity
-      setLoading(true);
-      try {
-        const allTilbud = await getAllTilbud();
-        setTilbud(allTilbud);
-      } catch (error) {
-        console.error("Error fetching tilbud:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTilbud();
-  }, [passedTilbud]);
-
   // Generate title based on props
   // Priority: custom title > company-specific title > default title
   const displayTitle =
     title || (companyName ? `Tilbud fra ${companyName}` : "Tilbud");
-
-  // Show loading state while fetching data
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
-        <div className="text-center">Loading tilbud...</div>
-      </div>
-    );
-  }
 
   // If there are no tilbud, render nothing (return null)
   if (!tilbud || tilbud.length === 0) {

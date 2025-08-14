@@ -2,7 +2,8 @@
 import "../styles/global.css";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
-import { getCompanies, getAllTilbud } from "../utils/sanity";
+import { getCompanies } from "../utils/sanity";
+import { getCachedAllTilbud } from "../utils/offerCache";
 import CompanyCard from "../components/CompanyCard.astro";
 import CompanySection from "../components/CompanySection.astro";
 import OfferSlider from "../components/OfferSlider";
@@ -10,7 +11,7 @@ import VideoHero from "../components/VideoHero.astro";
 import { urlFor } from "../utils/image";
 
 const companies = await getCompanies();
-const allTilbud = await getAllTilbud();
+const allTilbud = await getCachedAllTilbud();
 
 ---
 
