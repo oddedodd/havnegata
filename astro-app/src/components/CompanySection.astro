@@ -51,13 +51,13 @@ const shadowColorHex = shadowColor?.hex || '#d48fcf';
   ></div>
   
   <!-- Content -->
-  <div class="relative z-20 flex flex-col items-center justify-center w-full">
+  <div class="relative z-20 flex flex-col items-center justify-center w-full text-center">
     <span class="text-white text-xl sm:text-2xl font-body font-light mb-2 tracking-wide">
       {name}
     </span>
     {tagline && (
       <h1 
-        class="text-white text-5xl sm:text-6xl font-headline font-extrabold mb-2 px-4" 
+        class="text-white text-5xl sm:text-6xl font-headline font-extrabold leading-snug mb-2 px-4" 
         style={`text-shadow: 2px 3px 0 ${shadowColorHex};`}
       >
         {tagline}
