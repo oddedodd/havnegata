@@ -2,7 +2,7 @@
 import { urlFor } from "../utils/image";
 import PortableTextRenderer from "./PortableTextRenderer";
 import OfferSlider from "./OfferSlider";
-import { getTilbudByCompany } from "../utils/sanity";
+import { getCachedTilbudByCompany } from "../utils/offerCache";
 import DisplayLinks from "./DisplayLinks.astro";
 import OpenInNewTabButton from "./OpenInNewTabButton.astro";
 
@@ -32,7 +32,7 @@ const {
   showOpenInNewTab = false 
 }: Props = Astro.props;
 
-const tilbud = await getTilbudByCompany(slug);
+const tilbud = await getCachedTilbudByCompany(slug);
 const bgImageUrl = bgImage ? urlFor(bgImage).width(1200).height(600).url() : null;
 const bgColorHex = bgColor?.hex || '#f9e6ef';
 const shadowColorHex = shadowColor?.hex || '#d48fcf';
